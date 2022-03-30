@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { axiosInstance } from '../axiosInstance';
+import { axiosInstance } from '../api/axiosInstance';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from '../themes';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +10,9 @@ import {
   Input,
   SubmitButton,
   Message,
-} from './login.style';
+} from '../components/style/login.style';
 import { User } from '../interface/user';
-import { UserContext } from '../user.context';
+import { UserContext } from '../context/user.context';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const userContext = useContext(UserContext);
-  userContext.setLoginState(false);
+  //userContext.setLoginState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault(); // TODO: 이거 없으니까 body가 query parameter로 넘어감..
@@ -32,7 +32,8 @@ const Login = () => {
 
     try {
       const response = await axiosInstance.post('/users/auth/', user);
-      const { accessToken } = response.data;
+      const accessToken = response.data;
+      console.log('accessToken', response.data);
       axiosInstance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${accessToken}`;

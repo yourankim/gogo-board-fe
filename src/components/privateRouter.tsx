@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-const PrivateRouter = ({ isLoggedIn, children }: any) => {
-  console.log('in PrivateRouter: ', isLoggedIn);
+const PrivateRouter = ({ isLoggedIn }: any) => {
+  console.log('isLoggedIn in PrivateRouter: ', isLoggedIn);
+
   if (!isLoggedIn) {
     return <Navigate to='/login' replace />;
   }
