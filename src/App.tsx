@@ -18,7 +18,7 @@ const App = () => {
   };
   console.log('isLoggedIn in App', isLoggedIn);
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     try {
       console.log('refresh');
       const response = await axiosInstance.post('/users/auth/refresh/');
@@ -31,11 +31,11 @@ const App = () => {
       console.log(e.Message);
     }
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     refresh();
-  }, []);
+  }, [refresh]);
 
   if (loading) return <div>loading...</div>;
 

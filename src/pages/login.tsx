@@ -11,7 +11,7 @@ import {
   SubmitButton,
   Message,
 } from '../components/style/login.style';
-import { User } from '../interface/user';
+import User from '../interface/user';
 import { UserContext } from '../context/user.context';
 
 const Login = () => {
