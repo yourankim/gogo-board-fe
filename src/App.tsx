@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Posts from './pages/posts';
 import PostDetail from './pages/post.detail';
-import Register from './pages/register';
+import SignUp from './pages/signup';
 import Login from './pages/login';
 import PostEditor from './pages/post.editor';
 import { UserContext } from './context/user.context';
@@ -29,7 +29,6 @@ const App = () => {
       console.log('refresh');
       const response = await axiosInstance.post('/users/auth/refresh/');
       const { user, accessToken } = response.data;
-      console.log(user);
       axiosInstance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${accessToken}`;
@@ -58,7 +57,7 @@ const App = () => {
             <Route path='/edit/:postId' element={<PostEditor />} />
           </Route>
           <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+          <Route path='/signup' element={<SignUp />} />
         </Routes>
       </Router>
     </UserContext.Provider>

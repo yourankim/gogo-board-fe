@@ -1,8 +1,7 @@
-import { useContext } from 'react';
 import { axiosInstance } from '../api/axiosInstance';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from '../themes';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
   Title,
@@ -13,9 +12,8 @@ import {
   Message,
 } from '../components/style/login.style';
 import User from '../interface/user';
-import { UserContext } from '../context/user.context';
 
-const Login = () => {
+const SignUp = () => {
   const {
     register,
     handleSubmit,
@@ -23,21 +21,15 @@ const Login = () => {
   } = useForm<User>();
 
   const navigate = useNavigate();
-  const userContext = useContext(UserContext);
 
   const onSubmit: SubmitHandler<User> = async (formData) => {
     try {
-      const response = await axiosInstance.post('/users/auth/', formData);
-      const { user, accessToken } = response.data;
-      axiosInstance.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${accessToken}`;
-      userContext.setUserState(user);
-      userContext.setLoginState(true);
-      navigate('/');
+      await axiosInstance.post('/users', formData);
+      alert('가입되었습니다.');
+      navigate('/login');
     } catch (e: any) {
-      if (e.response.status === 401) {
-        alert('계정 정보가 일치하지 않습니다.');
+      if (e.response.status === 409) {
+        alert('이미 존재하는 이메일입니다.');
       } else {
         alert('일시적인 오류입니다. 잠시 후 다시 시도해주세요.');
       }
@@ -49,22 +41,24 @@ const Login = () => {
     <ThemeProvider theme={mainTheme}>
       <LoginSection>
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
-          <Title> GOGO BOARD 👾 </Title>
+          <Title> GOGO BOARD 가입 👾 </Title>
           <label htmlFor='email'>이메일</label>
           <Input type='email' {...register('email', { required: true })} />
           <Message>{errors.email && '이메일을 입력하세요.'}</Message>
+          <label htmlFor='name'>이름</label>
+          <Input {...register('name', { required: true })} />
+          <Message>{errors.name && '이름을 입력하세요.'}</Message>
           <label htmlFor='password'>비밀번호</label>
           <Input
             type='password'
             {...register('password', { required: true })}
           />
           <Message>{errors.password && '비밀번호를 입력하세요.'}</Message>
-          <SubmitButton>Log in</SubmitButton>
+          <SubmitButton>가입하기</SubmitButton>
         </LoginForm>
-        <Link to='/signup'>회원가입</Link>
       </LoginSection>
     </ThemeProvider>
   );
 };
 
-export default Login;
+export default SignUp;
