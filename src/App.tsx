@@ -25,18 +25,11 @@ const App = () => {
   };
 
   const refresh = useCallback(async () => {
-    try {
-      console.log('refresh');
-      const response = await axiosInstance.post('/users/auth/refresh/');
-      const { user, accessToken } = response.data;
-      axiosInstance.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${accessToken}`;
-      setUser(user);
-      setIsLoggedIn(true);
-    } catch (e: any) {
-      console.log(e.Message);
-    }
+    console.log('refresh');
+    const response = await axiosInstance.post('/users/auth/refresh/');
+    const { user } = response.data;
+    setUser(user);
+    setIsLoggedIn(true);
     setLoading(false);
   }, []);
 

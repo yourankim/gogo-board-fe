@@ -28,20 +28,14 @@ const Login = () => {
   const onSubmit: SubmitHandler<User> = async (formData) => {
     try {
       const response = await axiosInstance.post('/users/auth/', formData);
-      const { user, accessToken } = response.data;
-      axiosInstance.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${accessToken}`;
+      const { user } = response.data;
       userContext.setUserState(user);
       userContext.setLoginState(true);
       navigate('/');
     } catch (e: any) {
       if (e.response.status === 401) {
         alert('계정 정보가 일치하지 않습니다.');
-      } else {
-        alert('일시적인 오류입니다. 잠시 후 다시 시도해주세요.');
       }
-      console.error(e);
     }
   };
 

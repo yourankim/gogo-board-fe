@@ -13,13 +13,9 @@ const PostDetail = () => {
   const navigate = useNavigate();
 
   const getPost = useCallback(async () => {
-    try {
-      const response = await axiosInstance.get(`/posts/${postId}`);
-      const post: Post = response.data.post;
-      setPost(post);
-    } catch (e: any) {
-      console.log(e.Message);
-    }
+    const response = await axiosInstance.get(`/posts/${postId}`);
+    const post: Post = response.data.post;
+    setPost(post);
   }, [postId]);
 
   useEffect(() => {
@@ -31,18 +27,14 @@ const PostDetail = () => {
     window.confirm('정말 글을 삭제할까요?') && deletePost();
   };
 
-  const deletePost = () => {
-    try {
-      axiosInstance.delete(`/posts/${postId}`);
-      alert('글을 삭제했습니다.');
-      navigate('/');
-    } catch (e: any) {
-      console.error(e.message);
-    }
+  const deletePost = async () => {
+    await axiosInstance.delete(`/posts/${postId}`);
+    alert('글을 삭제했습니다.');
+    navigate('/');
   };
 
   if (!post) return <div>loading...</div>; // TODO: loading 이미지 넣기, post id 유효하지 않을때 에러 처리(이건 서버에서 응답을 줘야할듯)
-  // TODO: 수정,삭제, 글쓰기 본인이 작성한 글일때만 보이게
+
   return (
     <>
       <section>

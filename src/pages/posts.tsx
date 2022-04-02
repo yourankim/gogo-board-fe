@@ -10,14 +10,10 @@ const Posts = () => {
   const [hasMore, setHasMore] = React.useState<boolean>(true);
 
   const getPosts = useCallback(async () => {
-    try {
-      const response = await axiosInstance.get(`/posts?page=${page}`);
-      const prevPosts: Post[] = response.data.posts;
-      setPosts([...posts, ...prevPosts]);
-      setHasMore(prevPosts.length === 10);
-    } catch (e: any) {
-      console.log(e.Message);
-    }
+    const response = await axiosInstance.get(`/posts?page=${page}`);
+    const prevPosts: Post[] = response.data.posts;
+    setPosts([...posts, ...prevPosts]);
+    setHasMore(prevPosts.length === 10);
   }, [page]);
 
   useEffect(() => {

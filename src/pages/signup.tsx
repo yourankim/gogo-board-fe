@@ -30,10 +30,7 @@ const SignUp = () => {
     } catch (e: any) {
       if (e.response.status === 409) {
         alert('이미 존재하는 이메일입니다.');
-      } else {
-        alert('일시적인 오류입니다. 잠시 후 다시 시도해주세요.');
       }
-      console.error(e);
     }
   };
 

@@ -13,16 +13,12 @@ function PostEditor() {
   const navigate = useNavigate();
 
   const getPost = useCallback(async () => {
-    try {
-      const response = await axiosInstance.get(`/posts/${postId}`);
-      const post: Post = response.data.post;
-      setPost(post);
-      setTitle(post.title);
-      setContent(post.content);
-      setIsLoading(false);
-    } catch (e: any) {
-      console.log(e.Message);
-    }
+    const response = await axiosInstance.get(`/posts/${postId}`);
+    const post: Post = response.data.post;
+    setPost(post);
+    setTitle(post.title);
+    setContent(post.content);
+    setIsLoading(false);
   }, [postId]);
 
   useEffect(() => {
@@ -41,18 +37,14 @@ function PostEditor() {
       return;
     }
     const newPost = { ...post, title, content };
-    try {
-      //TODO: 등록/수정일 때 method가 다르지..
-      if (postId) {
-        await axiosInstance.patch(`/posts/${postId}`, newPost);
-      } else {
-        await axiosInstance.post('/posts', newPost);
-      }
-      alert('글을 저장했습니다.');
-      navigate('/');
-    } catch (e: any) {
-      console.error(e.message);
+
+    if (postId) {
+      await axiosInstance.patch(`/posts/${postId}`, newPost);
+    } else {
+      await axiosInstance.post('/posts', newPost);
     }
+    alert('글을 저장했습니다.');
+    navigate('/');
   };
 
   if (isLoading) {
