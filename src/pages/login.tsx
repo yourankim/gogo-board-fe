@@ -25,18 +25,19 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault(); // TODO: 이거 없으니까 body가 query parameter로 넘어감..
-    const user: User = {
+    const loginUser: User = {
       email,
       password,
     };
 
     try {
-      const response = await axiosInstance.post('/users/auth/', user);
-      const accessToken = response.data;
-      console.log('accessToken', response.data);
+      const response = await axiosInstance.post('/users/auth/', loginUser);
+      const { user, accessToken } = response.data;
+      console.log(user);
       axiosInstance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${accessToken}`;
+      userContext.setUserState(user);
       userContext.setLoginState(true);
       navigate('/');
     } catch (e: any) {

@@ -7,8 +7,7 @@ const PostItem = ({ post }: postItemProps) => {
     <div>
       <h2>{post.title}</h2>
       <p>{post.user.name}</p>
-      <p>{new Date(post.created).toLocaleDateString()}</p>
-      <p>{new Date(post.updated).toLocaleDateString()}</p>
+      <p>{new Date(post.created).toLocaleString()}</p>
     </div>
   );
 };
