@@ -3,6 +3,13 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import Post from '../interface/post';
 import { axiosInstance } from '../api/axiosInstance';
 import { UserContext } from '../context/user.context';
+import {
+  PostTitle,
+  PostArticle,
+  ItemDescription,
+  PostButtons,
+  PostContent,
+} from '../components/style/post';
 
 const PostDetail = () => {
   const postId = useParams<{ postId: string }>().postId;
@@ -36,17 +43,17 @@ const PostDetail = () => {
   if (!post) return <div>loading...</div>; // TODO: loading 이미지 넣기, post id 유효하지 않을때 에러 처리(이건 서버에서 응답을 줘야할듯)
 
   return (
-    <>
-      <section>
-        <h1>{post?.title}</h1>
-        <div>
-          <span>{post?.user.name}</span>
-          <span>{new Date(post.created).toLocaleString()}</span>
-          <span>{new Date(post.updated).toLocaleString()}</span>
-        </div>
-        <p>{post?.content}</p>
-      </section>
-      <div>
+    <PostArticle>
+      <PostTitle>{post?.title}</PostTitle>
+      <ItemDescription>
+        <span>{post?.user.name}</span>
+        <span>{new Date(post.created).toLocaleString()}</span>
+        <span>{new Date(post.updated).toLocaleString()}</span>
+      </ItemDescription>
+      <hr></hr>
+      <PostContent>{post?.content}</PostContent>
+      <hr></hr>
+      <PostButtons>
         {user && user.id === post.user.id && (
           <>
             <Link to={`/edit/${post.id}`}>
@@ -56,8 +63,8 @@ const PostDetail = () => {
           </>
         )}
         <button onClick={() => navigate('/')}>목록</button>
-      </div>
-    </>
+      </PostButtons>
+    </PostArticle>
   );
 };
 

@@ -2,6 +2,15 @@ import React, { useCallback, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../api/axiosInstance';
 import Post from '../interface/post';
+import {
+  PostForm,
+  PostTitle,
+  PostContent,
+  ItemDescription,
+  Input,
+  TextArea,
+} from '../components/style/post';
+import { Button } from '../components/style/common';
 
 function PostEditor() {
   const postId = useParams<{ postId: string }>().postId;
@@ -11,8 +20,9 @@ function PostEditor() {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   const navigate = useNavigate();
-
+  //TODO: 중복 fetch 추출, useForm 적용하기
   const getPost = useCallback(async () => {
+    console.log('postEditor getPost');
     const response = await axiosInstance.get(`/posts/${postId}`);
     const post: Post = response.data.post;
     setPost(post);
@@ -39,7 +49,7 @@ function PostEditor() {
     const newPost = { ...post, title, content };
 
     if (postId) {
-      await axiosInstance.patch(`/posts/${postId}`, newPost);
+      await axiosInstance.patch(`/posts`, newPost);
     } else {
       await axiosInstance.post('/posts', newPost);
     }
@@ -51,20 +61,23 @@ function PostEditor() {
     return <div>loading...</div>;
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <PostForm onSubmit={handleSubmit}>
+      <h2>글쓰기</h2>
+      <Input
         type='text'
         name='title'
         value={title}
+        placeholder='제목을 입력하세요.'
         onChange={(e) => setTitle(e.target.value)}
       />
-      <textarea
+      <TextArea
         name='content'
+        placeholder='내용을 입력하세요.'
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button>저장</button>
-    </form>
+      <Button>저장</Button>
+    </PostForm>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { mainTheme } from './themes';
 import Posts from './pages/posts';
 import PostDetail from './pages/post.detail';
 import SignUp from './pages/signup';
@@ -41,18 +42,20 @@ const App = () => {
 
   return (
     <UserContext.Provider value={userState}>
-      <Router>
-        <Routes>
-          <Route element={<PrivateRouter isLoggedIn={isLoggedIn} />}>
-            <Route path='/' element={<Posts />} />
-            <Route path='/:postId' element={<PostDetail />} />
-            <Route path='/write' element={<PostEditor />} />
-            <Route path='/edit/:postId' element={<PostEditor />} />
-          </Route>
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
-        </Routes>
-      </Router>
+      <ThemeProvider theme={mainTheme}>
+        <Router>
+          <Routes>
+            <Route element={<PrivateRouter isLoggedIn={isLoggedIn} />}>
+              <Route path='/' element={<Posts />} />
+              <Route path='/:postId' element={<PostDetail />} />
+              <Route path='/write' element={<PostEditor />} />
+              <Route path='/edit/:postId' element={<PostEditor />} />
+            </Route>
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
     </UserContext.Provider>
   );
 };

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Title = styled.h1`
   text-align: center;
@@ -41,14 +41,14 @@ const Input = styled.input.attrs((props) => ({
 `;
 
 const SubmitButton = styled.button.attrs((props) => ({
-  type: "submit",
+  type: 'submit',
 }))`
   margin: 10px 0;
   height: 32px;
 `;
 
 const Message = styled.span`
-  color: ${(props) => props.theme.colors.error};
+  color: ${(props) => props.theme.colors.warn};
 `;
 
 export { Title, LoginSection, LoginForm, Input, SubmitButton, Message };

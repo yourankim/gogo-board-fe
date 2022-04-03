@@ -1,10 +1,12 @@
-import { DefaultTheme } from "styled-components";
+import { DefaultTheme } from 'styled-components';
 
 const mainTheme: DefaultTheme = {
   colors: {
-    primary: "#6000ff",
-    secondary: "",
-    error: "#cc1919",
+    black: '#180A0A',
+    white: '#FFFFFF',
+    primary: '#711A75',
+    secondary: '#F582A7',
+    warn: '#F10086',
   },
 };
 
