@@ -26,20 +26,14 @@ const App = () => {
   };
 
   const handleRefresh = async () => {
-    try {
-      const response = await refresh();
-      if (!response) {
-        return;
-      }
-      // TODO: 이러면 세번 연속 렌더링되는거야?
-      const { user } = response.data;
-      setUser(user);
-      setIsLoggedIn(true);
-    } catch (e: any) {
-      console.log('refresh error', e);
-      setUser({} as User);
-      setIsLoggedIn(false);
+    const response = await refresh();
+    if (!response) {
+      return;
     }
+    // TODO: 이러면 세번 연속 렌더링되는거야?
+    const { user } = response.data;
+    setUser(user);
+    setIsLoggedIn(true);
     setLoading(false);
   };
 
