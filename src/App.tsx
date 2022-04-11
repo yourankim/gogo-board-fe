@@ -9,8 +9,8 @@ import Login from './pages/login';
 import PostEditor from './pages/post.editor';
 import { UserContext } from './context/user.context';
 import PrivateRouter from './components/privateRouter';
-import { axiosInstance } from './api/axiosInstance';
 import User from './interface/user';
+import { refresh } from './api/axiosInstance';
 
 const App = () => {
   const [user, setUser] = React.useState<User>({} as User);
@@ -25,18 +25,32 @@ const App = () => {
     setLoginState: (isLoggedIn: boolean) => setIsLoggedIn(isLoggedIn),
   };
 
-  const refresh = useCallback(async () => {
-    console.log('refresh');
-    const response = await axiosInstance.post('/users/auth/refresh/');
-    const { user } = response.data;
-    setUser(user);
-    setIsLoggedIn(true);
+  const handleRefresh = async () => {
+    try {
+      const response = await refresh();
+      if (!response) {
+        return;
+      }
+      // TODO: 이러면 세번 연속 렌더링되는거야?
+      const { user } = response.data;
+      setUser(user);
+      setIsLoggedIn(true);
+    } catch (e: any) {
+      console.log('refresh error', e);
+      setUser({} as User);
+      setIsLoggedIn(false);
+    }
     setLoading(false);
-  }, []);
+  };
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    const { pathname } = window.location;
+    if (pathname === '/login' || pathname === '/signup') {
+      setLoading(false);
+      return;
+    }
+    handleRefresh();
+  }, []);
 
   if (loading) return <div>loading...</div>;
 
