@@ -62,7 +62,7 @@ export const PostButtons = styled.div`
   gap: 0.5rem;
 `;
 
-export const PostContent = styled.p`
+export const PostContent = styled.pre`
   border-radius: 10px;
   font-size: 1.2rem;
   min-height: 50vh;

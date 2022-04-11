@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { axiosInstance } from '../api/axiosInstance';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
   Title,
@@ -10,7 +10,8 @@ import {
   Input,
   SubmitButton,
   Message,
-} from '../components/style/login.style';
+  SignupLink,
+} from '../components/style/login';
 import User from '../interface/user';
 import { UserContext } from '../context/user.context';
 
@@ -49,8 +50,8 @@ const Login = () => {
         <Input type='password' {...register('password', { required: true })} />
         <Message>{errors.password && '비밀번호를 입력하세요.'}</Message>
         <SubmitButton>Log in</SubmitButton>
+        <SignupLink to='/signup'>회원가입</SignupLink>
       </LoginForm>
-      <Link to='/signup'>회원가입</Link>
     </LoginSection>
   );
 };

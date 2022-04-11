@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Post from '../interface/post';
 import { ListItem, ItemDescription } from '../components/style/post';
 import { StyledLink } from '../components/style/common';

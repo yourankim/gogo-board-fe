@@ -31,8 +31,11 @@ export const Button = styled.button.attrs((props) => ({
 export const StyledLink = styled(Link)`
   color: ${(props) => props.theme.colors.black};
   text-decoration: none;
+  &:hover {
+    opacity: 0.6;
+  }
 `;
 
-const Message = styled.span`
+export const Message = styled.span`
   color: ${(props) => props.theme.colors.warn};
 `;

@@ -2,14 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../api/axiosInstance';
 import Post from '../interface/post';
-import {
-  PostForm,
-  PostTitle,
-  PostContent,
-  ItemDescription,
-  Input,
-  TextArea,
-} from '../components/style/post';
+import { PostForm, Input, TextArea } from '../components/style/post';
 import { Button } from '../components/style/common';
 
 function PostEditor() {

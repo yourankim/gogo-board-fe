@@ -1,17 +1,19 @@
 import styled from 'styled-components';
+import { StyledLink } from './common';
 
-const Title = styled.h1`
+export const Title = styled.h1`
   text-align: center;
 `;
 
-const LoginSection = styled.section`
+export const LoginSection = styled.section`
   display: flex;
   height: 100vh;
+  width: 100vw;
   justify-content: center;
   align-items: center;
 `;
 
-const LoginForm = styled.form`
+export const LoginForm = styled.form`
   width: 70%;
   border-radius: 10px;
   padding: 20px;
@@ -30,7 +32,7 @@ const LoginForm = styled.form`
   }
 `;
 
-const Input = styled.input.attrs((props) => ({
+export const Input = styled.input.attrs((props) => ({
   type: props.type,
   name: props.name,
   required: props.required,
@@ -40,15 +42,17 @@ const Input = styled.input.attrs((props) => ({
   height: 32px;
 `;
 
-const SubmitButton = styled.button.attrs((props) => ({
+export const SubmitButton = styled.button.attrs((props) => ({
   type: 'submit',
 }))`
   margin: 10px 0;
   height: 32px;
 `;
 
-const Message = styled.span`
+export const Message = styled.span`
   color: ${(props) => props.theme.colors.warn};
 `;
 
-export { Title, LoginSection, LoginForm, Input, SubmitButton, Message };
+export const SignupLink = styled(StyledLink)`
+  text-align: center;
+`;

@@ -10,7 +10,7 @@ import {
   Input,
   SubmitButton,
   Message,
-} from '../components/style/login.style';
+} from '../components/style/login';
 import User from '../interface/user';
 
 const SignUp = () => {
