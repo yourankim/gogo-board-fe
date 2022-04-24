@@ -5,8 +5,7 @@ export const PostSection = styled.section`
   width: 70%;
   display: flex;
   min-height: 100vh;
-  justify-content: center;
-  align-items: center;
+  justify-content: top;
   flex-direction: column;
   margin: 10% 0;
   color: ${(props) => props.theme.colors.black};
