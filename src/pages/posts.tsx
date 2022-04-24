@@ -12,7 +12,11 @@ const Posts = () => {
   const [hasMore, setHasMore] = React.useState<boolean>(true);
 
   const getPosts = useCallback(async () => {
-    const response = await axiosInstance.get(`/posts?page=${page}`);
+    const startAt = posts.length > 0 ? posts[posts.length - 1].id : 0;
+    console.log(startAt);
+    const response = await axiosInstance.get(
+      `/posts?page=${page}&startAt=${startAt}`
+    );
     const prevPosts: Post[] = response.data.posts;
     setPosts([...posts, ...prevPosts]);
     setHasMore(prevPosts.length === 10);
